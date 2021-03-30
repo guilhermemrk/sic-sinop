@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Corporate.Wozzi.Restaurant.Domain/1.0.0": {
+        "runtime": {
+          "Corporate.Wozzi.Restaurant.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Corporate.Wozzi.Restaurant.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

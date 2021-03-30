@@ -1,0 +1,15 @@
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.deps.json
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.runtimeconfig.json
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.runtimeconfig.dev.json
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.dll
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.pdb
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.dll
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.pdb
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.csprojAssemblyReference.cache
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.AssemblyInfoInputs.cache
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.AssemblyInfo.cs
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.csproj.CoreCompileInputs.cache
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.csproj.CopyComplete
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.dll
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.pdb
+C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Infrastructure\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Infrastructure.genruntimeconfig.cache

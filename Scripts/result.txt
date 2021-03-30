@@ -1,0 +1,476 @@
+﻿[_BEGIN_FILE_: SICSinop.Domain\Entities\User.cs]using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Entities
+{
+    public class User : BasicEntity
+    {
+        public String Name { get; set; }
+        public String CPF { get; set; }
+        public String Email { get; set; }
+        public String CEP { get; set; }
+        public Int64 Rank { get; set; }
+        
+        public ICollection<Marker>Markers { get; set; } = new List<Marker>();
+                
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.API\Controllers\UserController.cs]using SICSinop.Domain.Interfaces.Services;
+using SICSinop.Domain.Model;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SICSinop.API.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController
+    {
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }
+
+        [HttpGet]
+        [Route("list")]
+        public IEnumerable<UserViewModel> GetAll()
+        {
+            return _userService.GetAllUsers();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public UserViewModel Get(int id)
+        {
+            return _userService.GetUserById(id);
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Repository\IUserRepository.cs]using SICSinop.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Interfaces.Repository
+{
+    public interface IUserRepository
+    {
+        List<User> GetAllUsers();
+        User GetUserById(int id);
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IUserService.cs]using SICSinop.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Interfaces.Services
+{
+    public interface IUserService
+    {
+        ICollection<UserViewModel> GetAllUsers();
+        UserViewModel GetUserById(int id);
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\UserModel.cs]using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Model
+{
+    public class UserModel
+    {
+        public Int64 Id { get; set; }
+        public String Name { get; set; }
+        public String CPF { get; set; }
+        public String Email { get; set; }
+        public String CEP { get; set; }
+        public Int64 Rank { get; set; }
+        
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\UserViewModel.cs]using SICSinop.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Model
+{
+    public class UserViewModel
+    {
+        public Int64 Id { get; set; }
+        public String Name { get; set; }
+        public String CPF { get; set; }
+        public String Email { get; set; }
+        public String CEP { get; set; }
+        public Int64 Rank { get; set; }
+        
+        public UserViewModel FromModel(User user)
+        {
+            return new UserViewModel()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                CPF = user.CPF,
+                Email = user.Email,
+                CEP = user.CEP,
+                Rank = user.Rank,
+                
+            };
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Services\UserService.cs]using SICSinop.Domain.Entities;
+using SICSinop.Domain.Interfaces.Repository;
+using SICSinop.Domain.Interfaces.Services;
+using SICSinop.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SICSinop.Domain.Services
+{
+    public class UserService : IUserService
+    {
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public ICollection<UserViewModel> GetAllUsers()
+        {
+            return _userRepository.GetAllUsers()
+                .Select(user => new UserViewModel()
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    CPF = user.CPF,
+                    Email = user.Email,
+                    CEP = user.CEP,
+                    Rank = user.Rank,
+                    
+                })
+                .ToList();
+        }
+
+        public UserViewModel GetUserById(int id)
+        {
+            var user = _userRepository.GetUserById(id);
+            return (user != null ? new UserViewModel()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                CPF = user.CPF,
+                Email = user.Email,
+                CEP = user.CEP,
+                Rank = user.Rank,
+                
+            } : null);
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Mapping\UserMap.cs]using SICSinop.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Data.Mapping
+{
+    public class UserMap : IEntityTypeConfiguration<User>
+    {
+        public void Configure(EntityTypeBuilder<User> builder)
+        {
+            builder
+                .ToTable("User");
+            builder
+                .HasKey(x => x.Id);
+            builder
+                .Property(x => x.Name);
+            builder
+                .Property(x => x.CPF);
+            builder
+                .Property(x => x.Email);
+            builder
+                .Property(x => x.CEP);
+            builder
+                .Property(x => x.Rank);
+            builder
+                .HasMany(x => x.Markers)
+                .WithOne(x => x.User);
+                    
+        }
+    }
+}
+[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Repository\UserRepository.cs]using SICSinop.Domain.Entities;
+using SICSinop.Domain.Interfaces.Repository;
+using SICSinop.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SICSinop.Domain.Data.Repository
+{
+    public class UserRepository : Repository<User>, IUserRepository
+    {
+        public UserRepository(MainDbContext context) : base(context) { }
+
+        public List<User> GetAllUsers()
+        {
+            return GetAll().ToList();
+        }
+
+        public User GetUserById(int id)
+        {
+            return FindById(id);
+        }
+    }
+}
+
+[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Entities\Marker.cs]using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Entities
+{
+    public class Marker : BasicEntity
+    {
+        public Int64 UserId { get; set; }
+        public String Title { get; set; }
+        public String Description { get; set; }
+        public String Latitude { get; set; }
+        public String Longitude { get; set; }
+        public String Status { get; set; }
+        
+        public User User { get; set; }
+                
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.API\Controllers\MarkerController.cs]using SICSinop.Domain.Interfaces.Services;
+using SICSinop.Domain.Model;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SICSinop.API.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class MarkerController
+    {
+        private readonly IMarkerService _markerService;
+
+        public MarkerController(IMarkerService markerService)
+        {
+            _markerService = markerService;
+        }
+
+        [HttpGet]
+        [Route("list")]
+        public IEnumerable<MarkerViewModel> GetAll()
+        {
+            return _markerService.GetAllMarkers();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public MarkerViewModel Get(int id)
+        {
+            return _markerService.GetMarkerById(id);
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Repository\IMarkerRepository.cs]using SICSinop.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Interfaces.Repository
+{
+    public interface IMarkerRepository
+    {
+        List<Marker> GetAllMarkers();
+        Marker GetMarkerById(int id);
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IMarkerService.cs]using SICSinop.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Interfaces.Services
+{
+    public interface IMarkerService
+    {
+        ICollection<MarkerViewModel> GetAllMarkers();
+        MarkerViewModel GetMarkerById(int id);
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\MarkerModel.cs]using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Model
+{
+    public class MarkerModel
+    {
+        public Int64 Id { get; set; }
+        public Int64 UserId { get; set; }
+        public String Title { get; set; }
+        public String Description { get; set; }
+        public String Latitude { get; set; }
+        public String Longitude { get; set; }
+        public String Status { get; set; }
+        
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\MarkerViewModel.cs]using SICSinop.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Model
+{
+    public class MarkerViewModel
+    {
+        public Int64 Id { get; set; }
+        public Int64 UserId { get; set; }
+        public String Title { get; set; }
+        public String Description { get; set; }
+        public String Latitude { get; set; }
+        public String Longitude { get; set; }
+        public String Status { get; set; }
+        
+        public MarkerViewModel FromModel(Marker marker)
+        {
+            return new MarkerViewModel()
+            {
+                Id = marker.Id,
+                UserId = marker.UserId,
+                Title = marker.Title,
+                Description = marker.Description,
+                Latitude = marker.Latitude,
+                Longitude = marker.Longitude,
+                Status = marker.Status,
+                
+            };
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Services\MarkerService.cs]using SICSinop.Domain.Entities;
+using SICSinop.Domain.Interfaces.Repository;
+using SICSinop.Domain.Interfaces.Services;
+using SICSinop.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SICSinop.Domain.Services
+{
+    public class MarkerService : IMarkerService
+    {
+        private readonly IMarkerRepository _markerRepository;
+
+        public MarkerService(IMarkerRepository markerRepository)
+        {
+            _markerRepository = markerRepository;
+        }
+
+        public ICollection<MarkerViewModel> GetAllMarkers()
+        {
+            return _markerRepository.GetAllMarkers()
+                .Select(marker => new MarkerViewModel()
+                {
+                    Id = marker.Id,
+                    UserId = marker.UserId,
+                    Title = marker.Title,
+                    Description = marker.Description,
+                    Latitude = marker.Latitude,
+                    Longitude = marker.Longitude,
+                    Status = marker.Status,
+                    
+                })
+                .ToList();
+        }
+
+        public MarkerViewModel GetMarkerById(int id)
+        {
+            var marker = _markerRepository.GetMarkerById(id);
+            return (marker != null ? new MarkerViewModel()
+            {
+                Id = marker.Id,
+                UserId = marker.UserId,
+                Title = marker.Title,
+                Description = marker.Description,
+                Latitude = marker.Latitude,
+                Longitude = marker.Longitude,
+                Status = marker.Status,
+                
+            } : null);
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Mapping\MarkerMap.cs]using SICSinop.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Data.Mapping
+{
+    public class MarkerMap : IEntityTypeConfiguration<Marker>
+    {
+        public void Configure(EntityTypeBuilder<Marker> builder)
+        {
+            builder
+                .ToTable("Marker");
+            builder
+                .HasKey(x => x.Id);
+            builder
+                .Property(x => x.UserId);
+            builder
+                .Property(x => x.Title);
+            builder
+                .Property(x => x.Description);
+            builder
+                .Property(x => x.Latitude);
+            builder
+                .Property(x => x.Longitude);
+            builder
+                .Property(x => x.Status);
+            builder
+                .HasOne(x => x.User)
+                .WithMany(x => x.Markers);
+        }
+    }
+}
+[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Repository\MarkerRepository.cs]using SICSinop.Domain.Entities;
+using SICSinop.Domain.Interfaces.Repository;
+using SICSinop.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SICSinop.Domain.Data.Repository
+{
+    public class MarkerRepository : Repository<Marker>, IMarkerRepository
+    {
+        public MarkerRepository(MainDbContext context) : base(context) { }
+
+        public List<Marker> GetAllMarkers()
+        {
+            return GetAll().ToList();
+        }
+
+        public Marker GetMarkerById(int id)
+        {
+            return FindById(id);
+        }
+    }
+}
+
+[_END_FILE_]
