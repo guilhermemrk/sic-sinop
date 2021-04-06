@@ -14,6 +14,7 @@ namespace SICSinop.Infrastructure.Data.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Seed();
         }
 
         public DbSet<User> Users { get; set; }
