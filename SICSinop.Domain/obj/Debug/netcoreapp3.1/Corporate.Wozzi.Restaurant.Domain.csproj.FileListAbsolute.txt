@@ -1,9 +1,0 @@
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.deps.json
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.dll
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\bin\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.pdb
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.AssemblyInfoInputs.cache
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.AssemblyInfo.cs
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.csproj.CoreCompileInputs.cache
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.dll
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.pdb
-C:\Users\athyr\OneDrive\Área de Trabalho\Treinamento\Back\Corporate.Wozzi.Restaurant.API\Corporate.Wozzi.Restaurant.Domain\obj\Debug\netcoreapp3.1\Corporate.Wozzi.Restaurant.Domain.csprojAssemblyReference.cache
