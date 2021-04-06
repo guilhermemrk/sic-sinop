@@ -275,12 +275,13 @@ namespace SICSinop.Domain.Data.Mapping
                     <xsl:when test="rhas='one'">
             builder
                 .HasOne(x => x.<xsl:value-of select="rname"/>)
-                .WithMany(x => x.<xsl:value-of select="$modelplural"/>);</xsl:when></xsl:choose></xsl:for-each>
+                .WithMany(x => x.<xsl:value-of select="$modelplural"/>)
+	            <xsl:choose><xsl:when test="usefield">.HasForeignKey(x => x.<xsl:value-of select="usefield"/>);</xsl:when><xsl:otherwise>;</xsl:otherwise></xsl:choose></xsl:when></xsl:choose></xsl:for-each>
         }
     }
 }
 [_END_FILE_]</xsl:template>
-
+	
 <!-- Repository -->
 
 <xsl:template mode="gen-repository" match="model">[_BEGIN_FILE_: SICSinop.Infrastructure\Data\Repository\<xsl:value-of select="name"/>Repository.cs]using SICSinop.Domain.Entities;

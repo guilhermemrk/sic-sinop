@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2+CzA6ns2SsutUR7ioWKTKwAdnkvKan3/2X9QS8fWZ9aBZlmx9WVGrT1ItZCkTR6vNe6g2IQg2GjP6Md8zB5TQ==",
+  "dgSpecHash": "N65KC0VeEbTYYb9A/+QmRSg3S8w3m2+EwWzNrzBHpGafJbbq4aSD49KF1WWRn3+4qddf2e/PG0jNlx0GmL4XMg==",
   "success": true,
   "projectFilePath": "C:\\Users\\guilh\\source\\repos\\SIC Sinop\\SICSinop.Infrastructure\\SICSinop.Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -35,6 +35,8 @@
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\guilh\\.nuget\\packages\\npgsql\\4.1.2\\npgsql.4.1.2.nupkg.sha512",
+    "C:\\Users\\guilh\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\3.1.0\\npgsql.entityframeworkcore.postgresql.3.1.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
@@ -77,7 +79,7 @@
     "C:\\Users\\guilh\\.nuget\\packages\\system.resources.resourcemanager\\4.3.0\\system.resources.resourcemanager.4.3.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\system.runtime\\4.3.0\\system.runtime.4.3.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\system.runtime.caching\\4.5.0\\system.runtime.caching.4.5.0.nupkg.sha512",
-    "C:\\Users\\guilh\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.5.0\\system.runtime.compilerservices.unsafe.4.5.0.nupkg.sha512",
+    "C:\\Users\\guilh\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\system.runtime.extensions\\4.3.0\\system.runtime.extensions.4.3.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\guilh\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",

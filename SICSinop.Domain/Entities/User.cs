@@ -12,7 +12,7 @@ namespace SICSinop.Domain.Entities
         public String CEP { get; set; }
         public Int64 Rank { get; set; }
         
-        public ICollection<Marker>Markers { get; set; } = new List<Marker>();
+        public ICollection<Marker> Markers { get; set; } = new List<Marker>();
                 
     }
 }

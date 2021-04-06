@@ -145,7 +145,8 @@
                 <rplural>Users</rplural>
                 <rid>user</rid>
                 <rdescription>Marker relationship with User</rdescription>
-                <rhas>one</rhas>
+				<rhas>one</rhas>
+				<usefield>UserId</usefield>
             </relationship>
         </relationships>
 	</model>

@@ -17,7 +17,7 @@ namespace SICSinop.Domain.Data.Repository
         {
             return GetAll().ToList();
         }
-
+                                            
         public User GetUserById(int id)
         {
             return FindById(id);

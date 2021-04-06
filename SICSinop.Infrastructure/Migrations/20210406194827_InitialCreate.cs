@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SICSinop.Infrastructure.Migrations
 {
@@ -10,13 +11,13 @@ namespace SICSinop.Infrastructure.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(nullable: false),
                     CPF = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
                     CEP = table.Column<string>(nullable: false),
-                    Rank = table.Column<int>(nullable: false)
+                    Rank = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -27,9 +28,9 @@ namespace SICSinop.Infrastructure.Migrations
                 name: "Marker",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(nullable: false),
                     Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: false),
                     Latitude = table.Column<string>(nullable: false),

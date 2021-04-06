@@ -16,6 +16,7 @@ namespace SICSinop.Infrastructure.Data.Context
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
+        public DbSet<User> Users { get; set; }
         public DbSet<Marker> Markers { get; set; }
     }
 }
@@ -23,5 +24,5 @@ namespace SICSinop.Infrastructure.Data.Context
 // dotnet ef migrations add InitialCreate -s SICSinop.API -p SICSinop.Infrastructure
 // dotnet ef database update -p SICSinop.API
 
-// add-migration Initialize -verbose -StartupProject SICSinop.API -project SICSinop.Infrastructure
-// update-database -verbose -StartupProject SICSinop.API
+// add-migration Initialize -verbose -StartupProject Corporate.Wozzi.Restaurant.API -project Corporate.Wozzi.Restaurant.Infrastructure
+// update-database -verbose -StartupProject Corporate.Wozzi.Restaurant.API

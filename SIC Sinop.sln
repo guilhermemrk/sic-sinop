@@ -3,17 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SICSinop.API", "SICSinop.API\SICSinop.API.csproj", "{7A4B0034-1C73-49D7-8782-F1CF3835FFA2}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SICSinop.Infrastructure", "SICSinop.Infrastructure\SICSinop.Infrastructure.csproj", "{826CAE18-AE8B-4D47-A3D8-5AE91F8F38FF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SICSinop.Domain", "SICSinop.Domain\SICSinop.Domain.csproj", "{3623BD0E-7B1D-462B-8FF6-9479EDD9119A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{BBD76E5C-B0AB-4E61-BC09-3AD2EAD51C89}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{823BF4E9-7E60-4A0E-83C7-F77C70C21DCF}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Documents\sicsinop\xslt\entity.xsl = ..\..\..\Documents\sicsinop\xslt\entity.xsl
-		..\..\..\Documents\sicsinop\xslt\result.txt = ..\..\..\Documents\sicsinop\xslt\result.txt
-		..\..\..\Documents\sicsinop\xslt\source.xml = ..\..\..\Documents\sicsinop\xslt\source.xml
+		Scripts\entity.xsl = Scripts\entity.xsl
+		Scripts\result.txt = Scripts\result.txt
+		Scripts\source.xml = Scripts\source.xml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SICSinop.API", "SICSinop.API\SICSinop.API.csproj", "{FA24D5D1-0E81-4C52-9180-CA68BB1CBC28}"
+	ProjectSection(ProjectDependencies) = postProject
+		{826CAE18-AE8B-4D47-A3D8-5AE91F8F38FF} = {826CAE18-AE8B-4D47-A3D8-5AE91F8F38FF}
 	EndProjectSection
 EndProject
 Global
@@ -22,10 +25,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7A4B0034-1C73-49D7-8782-F1CF3835FFA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7A4B0034-1C73-49D7-8782-F1CF3835FFA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7A4B0034-1C73-49D7-8782-F1CF3835FFA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7A4B0034-1C73-49D7-8782-F1CF3835FFA2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{826CAE18-AE8B-4D47-A3D8-5AE91F8F38FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{826CAE18-AE8B-4D47-A3D8-5AE91F8F38FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{826CAE18-AE8B-4D47-A3D8-5AE91F8F38FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -34,6 +33,10 @@ Global
 		{3623BD0E-7B1D-462B-8FF6-9479EDD9119A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3623BD0E-7B1D-462B-8FF6-9479EDD9119A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3623BD0E-7B1D-462B-8FF6-9479EDD9119A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA24D5D1-0E81-4C52-9180-CA68BB1CBC28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA24D5D1-0E81-4C52-9180-CA68BB1CBC28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA24D5D1-0E81-4C52-9180-CA68BB1CBC28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA24D5D1-0E81-4C52-9180-CA68BB1CBC28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
