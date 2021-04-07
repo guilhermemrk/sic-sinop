@@ -4,6 +4,15 @@
 		<name>User</name>
 		<plural>Users</plural>
 		<id>user</id>
+		<genentity></genentity>
+		<gencontroller></gencontroller>
+		<genirepository></genirepository>
+		<geniservice></geniservice>
+		<genmodel></genmodel>
+		<genviewmodel></genviewmodel>
+		<genservice></genservice>
+		<genmap></genmap>
+		<genrepository></genrepository>
 		<properties>
 			<property>
 				<pname>Id</pname>
@@ -68,6 +77,13 @@
 				<rdescription>User relationship with Marker</rdescription>
 				<rhas>many</rhas>
 			</relationship>
+			<relationship>
+				<rname>MarkerComment</rname>
+				<rplural>MarkerComments</rplural>
+				<rid>markercomment</rid>
+				<rdescription>User relationship with MarkerComment</rdescription>
+				<rhas>many</rhas>
+			</relationship>
 		</relationships>
 	</model>
 	<model>
@@ -115,7 +131,9 @@
 				<pname>Latitude</pname>
 				<ptitle>Latitude</ptitle>
 				<pid>latitude</pid>
-				<ptype>string</ptype>
+				<ptype>decimal</ptype>
+				<pprecision>18</pprecision>
+				<pscale>5</pscale>
 				<pdescription>Marker's Latitude</pdescription>
 				<pnullable>false</pnullable>
 				<pskiponentity>false</pskiponentity>
@@ -124,7 +142,9 @@
 				<pname>Longitude</pname>
 				<ptitle>Longitude</ptitle>
 				<pid>longitude</pid>
-				<ptype>string</ptype>
+				<ptype>decimal</ptype>
+				<pprecision>18</pprecision>
+				<pscale>5</pscale>
 				<pdescription>Marker's Longitude</pdescription>
 				<pnullable>false</pnullable>
 				<pskiponentity>false</pskiponentity>
@@ -147,6 +167,74 @@
 				<rdescription>Marker relationship with User</rdescription>
 				<rhas>one</rhas>
 				<usefield>UserId</usefield>
+			</relationship>
+			<relationship>
+				<rname>MarkerComment</rname>
+				<rplural>MarkerComments</rplural>
+				<rid>markercomment</rid>
+				<rdescription>User relationship with MarkerComment</rdescription>
+				<rhas>many</rhas>
+			</relationship>
+		</relationships>
+	</model>
+	<model>
+		<name>MarkerComment</name>
+		<plural>MarkerComments</plural>
+		<id>markercomments</id>
+		<properties>
+			<property>
+				<pname>Id</pname>
+				<ptitle>ID</ptitle>
+				<pid>id</pid>
+				<ptype>long</ptype>
+				<pdescription>Marker's Comment ID</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>true</pskiponentity>
+			</property>
+			<property>
+				<pname>UserId</pname>
+				<ptitle>User ID</ptitle>
+				<pid>userid</pid>
+				<ptype>long</ptype>
+				<pdescription>Comment User's ID</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
+			</property>
+			<property>
+				<pname>MarkerId</pname>
+				<ptitle>Marker ID</ptitle>
+				<pid>markerid</pid>
+				<ptype>long</ptype>
+				<pdescription>Marker's ID</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
+			</property>
+			<property>
+				<pname>Message</pname>
+				<ptitle>Message</ptitle>
+				<pid>message</pid>
+				<ptype>string</ptype>
+				<pdescription>Comment's body</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
+			</property>
+		</properties>
+		<relationships>
+			<relationship>
+				<rname>User</rname>
+				<rplural>Users</rplural>
+				<rid>user</rid>
+				<rdescription>User relationship with MarkerComment</rdescription>
+				<rhas>one</rhas>
+				<usefield>UserId</usefield>
+			</relationship>
+			<relationship>
+				<rname>Marker</rname>
+				<rplural>Markers</rplural>
+				<rid>marker</rid>
+				<rdescription>Marker relationship with MarkerComment</rdescription>
+				<rhas>one</rhas>
+				<usefield>MarkerId</usefield>
 			</relationship>
 		</relationships>
 	</model>

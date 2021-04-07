@@ -13,6 +13,6 @@ namespace SICSinop.Domain.Entities
         public int Rank { get; set; }
         
         public ICollection<Marker>Markers { get; set; } = new List<Marker>();
-                
+        public ICollection<MarkerComment>MarkerComments { get; set; } = new List<MarkerComment>();
     }
 }

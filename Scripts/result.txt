@@ -14,6 +14,8 @@ namespace SICSinop.Domain.Entities
         
         public ICollection<Marker>Markers { get; set; } = new List<Marker>();
                 
+        public ICollection<MarkerComment>MarkerComments { get; set; } = new List<MarkerComment>();
+                
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.API\Controllers\UserController.cs]using SICSinop.Domain.Interfaces.Services;
 using SICSinop.Domain.Model;
@@ -303,6 +305,10 @@ namespace SICSinop.Domain.Data.Mapping
                 .HasMany(x => x.Markers)
                 .WithOne(x => x.User);
                     
+            builder
+                .HasMany(x => x.MarkerComments)
+                .WithOne(x => x.User);
+                    
         }
     }
 }
@@ -376,6 +382,8 @@ namespace SICSinop.Domain.Entities
         public string Status { get; set; }
         
         public User User { get; set; }
+                
+        public ICollection<MarkerComment>MarkerComments { get; set; } = new List<MarkerComment>();
                 
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.API\Controllers\MarkerController.cs]using SICSinop.Domain.Interfaces.Services;
@@ -677,6 +685,10 @@ namespace SICSinop.Domain.Data.Mapping
                 .HasOne(x => x.User)
                 .WithMany(x => x.Markers)
 	            .HasForeignKey(x => x.UserId);
+            builder
+                .HasMany(x => x.MarkerComments)
+                .WithOne(x => x.Marker);
+                    
         }
     }
 }
@@ -730,6 +742,350 @@ namespace SICSinop.Domain.Data.Repository
             Remove(marker);
             SaveChanges();
             return marker;
+        }
+    }
+}
+
+[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Entities\MarkerComment.cs]using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Entities
+{
+    public class MarkerComment : BaseEntity
+    {
+        public long UserId { get; set; }
+        public long MarkerId { get; set; }
+        public string Message { get; set; }
+        
+        public User User { get; set; }
+                
+        public Marker Marker { get; set; }
+                
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.API\Controllers\MarkerCommentController.cs]using SICSinop.Domain.Interfaces.Services;
+using SICSinop.Domain.Model;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace SICSinop.API.Controllers
+{
+    [ApiController]
+    [Route("[controller]")]
+    public class MarkerCommentController
+    {
+        private readonly IMarkerCommentService _markercommentsService;
+
+        public MarkerCommentController(IMarkerCommentService markercommentsService)
+        {
+            _markercommentsService = markercommentsService;
+        }
+
+        [HttpGet]
+        [Route("list")]
+        public IEnumerable<MarkerCommentViewModel> GetAll()
+        {
+            return _markercommentsService.GetAllMarkerComments();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public MarkerCommentViewModel Get(int id)
+        {
+            return _markercommentsService.GetMarkerCommentById(id);
+        }
+
+        [HttpPost]
+        public MarkerCommentModel Post([FromBody] MarkerCommentModel model)
+        {
+            return _markercommentsService.SaveMarkerComment(model);
+        }
+
+        [HttpPut]
+        public MarkerCommentModel Put([FromBody] MarkerCommentModel model)
+        {
+            return _markercommentsService.UpdateMarkerComment(model);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public bool Delete(int id)
+        {
+            return _markercommentsService.DeleteMarkerComment(id);
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Repository\IMarkerCommentRepository.cs]using SICSinop.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Interfaces.Repository
+{
+    public interface IMarkerCommentRepository
+    {
+        List<MarkerComment> GetAllMarkerComments();
+        MarkerComment GetMarkerCommentById(int id);
+        MarkerComment CreateMarkerComment(MarkerCommentmarkercomments);
+        MarkerComment UpdateMarkerComment(MarkerCommentmarkercomments);
+        void CreateMarkerCommentList(List<MarkerComment> list);
+        MarkerComment DeleteMarkerComment(MarkerCommentmarkercomments);
+	}
+}
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IMarkerCommentSMarkerCommentervice.cs]using SICSinop.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Interfaces.Services
+{
+    public interface IMarkerCommentService
+    {
+        ICollection<MarkerCommentViewModel> GetAllMarkerComments();
+        MarkerCommentViewModel GetMarkerCommentById(int id);
+		MarkerCommentModel SaveMarkerComment(MarkerCommentModel model);
+        MarkerCommentModel UpdateMarkerComment(MarkerCommentModel model);
+        bool DeleteMarkerComment(int id);
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\MarkerCommentModel.cs]using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Model
+{
+    public class MarkerCommentModel
+    {
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public long MarkerId { get; set; }
+        public string Message { get; set; }
+        
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\MarkerCommentViewModel.cs]using SICSinop.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Model
+{
+    public class MarkerCommentViewModel
+    {
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public long MarkerId { get; set; }
+        public string Message { get; set; }
+        
+        public MarkerCommentViewModel FromModel(MarkerComment markercomments)
+        {
+            return new MarkerCommentViewModel()
+            {
+                Id = markercomments.Id,
+                UserId = markercomments.UserId,
+                MarkerId = markercomments.MarkerId,
+                Message = markercomments.Message,
+                
+            };
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Services\MarkerCommentService.cs]using SICSinop.Domain.Entities;
+using SICSinop.Domain.Interfaces.Repository;
+using SICSinop.Domain.Interfaces.Services;
+using SICSinop.Domain.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SICSinop.Domain.Services
+{
+    public class MarkerCommentService : IMarkerCommentService
+    {
+        private readonly IMarkerCommentRepository _markercommentsRepository;
+
+        public MarkerCommentService(IMarkerCommentRepository markercommentsRepository)
+        {
+            _markercommentsRepository = markercommentsRepository;
+        }
+
+        public ICollection<MarkerCommentViewModel> GetAllMarkerComments()
+        {
+            return _markercommentsRepository.GetAllMarkerComments()
+                .Select(markercomments => new MarkerCommentViewModel()
+                {
+                    Id = markercomments.Id,
+                    UserId = markercomments.UserId,
+                    MarkerId = markercomments.MarkerId,
+                    Message = markercomments.Message,
+                    
+                })
+                .ToList();
+        }
+
+        public MarkerCommentViewModel GetMarkerCommentById(int id)
+        {
+            var markercomments = _markercommentsRepository.GetMarkerCommentById(id);
+            return (markercomments != null ? new MarkerCommentViewModel()
+            {
+                Id = markercomments.Id,
+                UserId = markercomments.UserId,
+                MarkerId = markercomments.MarkerId,
+                Message = markercomments.Message,
+                
+            } : null);
+        }
+		
+		public MarkerCommentModel SaveMarkerComment(MarkerCommentModel model)
+        {
+            var markercomments = new MarkerComment()
+            {
+                Id = model.Id,
+                UserId = model.UserId,
+                MarkerId = model.MarkerId,
+                Message = model.Message,
+                
+            };
+			
+            markercomments = _markercommentsRepository.CreateMarkerComment(markercomments);
+			
+            return new MarkerCommentModel()
+            {
+                Id = markercomments.Id,
+                UserId = markercomments.UserId,
+                MarkerId = markercomments.MarkerId,
+                Message = markercomments.Message,
+                
+            };
+        }
+
+        public MarkerCommentModel UpdateMarkerComment(MarkerCommentModel model)
+        {
+            var markercomments = new MarkerComment()
+            {
+                Id = model.Id,
+                UserId = model.UserId,
+                MarkerId = model.MarkerId,
+                Message = model.Message,
+                
+            };
+			
+            markercomments = _markercommentsRepository.UpdateMarkerComment(markercomments);
+			
+            return new MarkerCommentModel()
+            {
+                Id = markercomments.Id,
+				UserId = model.UserId,
+				MarkerId = model.MarkerId,
+				Message = model.Message,
+				
+            };
+        }
+
+        public bool DeleteMarkerComment(int id)
+        {
+            try
+            {
+                var markercomments = _markercommentsRepository.GetMarkerCommentById(id);
+                if (markercomments == null)
+                {
+                    throw new Exception("Not found!");
+                }
+
+                _markercommentsRepository.DeleteMarkerComment(markercomments);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Mapping\MarkerCommentMap.cs]using SICSinop.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace SICSinop.Domain.Data.Mapping
+{
+    public class MarkerCommentMap : IEntityTypeConfiguration<MarkerComment>
+    {
+        public void Configure(EntityTypeBuilder<MarkerComment> builder)
+        {
+            builder
+                .ToTable("MarkerComment");
+            builder
+                .HasKey(x => x.Id);
+            builder
+                .Property(x => x.UserId);
+            builder
+                .Property(x => x.MarkerId);
+            builder
+                .Property(x => x.Message);
+            builder
+                .HasOne(x => x.User)
+                .WithMany(x => x.MarkerComments)
+	            .HasForeignKey(x => x.UserId);
+            builder
+                .HasOne(x => x.Marker)
+                .WithMany(x => x.MarkerComments)
+	            .HasForeignKey(x => x.MarkerId);
+        }
+    }
+}
+[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Repository\MarkerCommentRepository.cs]using SICSinop.Domain.Entities;
+using SICSinop.Domain.Interfaces.Repository;
+using SICSinop.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace SICSinop.Domain.Data.Repository
+{
+    public class MarkerCommentRepository : Repository<MarkerComment>, IMarkerCommentRepository
+    {
+        public MarkerCommentRepository(MainDbContext context) : base(context) { }
+
+        public List<MarkerComment> GetAllMarkerComments()
+        {
+            return GetAll().ToList();
+        }
+
+        public MarkerComment GetMarkerCommentById(int id)
+        {
+            return FindById(id);
+        }
+
+        public MarkerComment CreateMarkerComment(MarkerComment markercomments)
+        {
+            Create(markercomments);
+            SaveChanges();
+            return markercomments;
+        }
+
+        public MarkerComment UpdateMarkerComment(MarkerComment markercomments)
+        {
+            Update(markercomments);
+            SaveChanges();
+            return markercomments;
+        }
+
+        public void CreateMarkerCommentList(List<MarkerComment> list)
+        {
+            Create(list);
+            SaveChanges();
+        }
+
+        public MarkerComment DeleteMarkerComment(MarkerComment markercomments)
+        {
+            Remove(markercomments);
+            SaveChanges();
+            return markercomments;
         }
     }
 }

@@ -14,7 +14,8 @@ namespace SICSinop.Domain.Model
         public string Latitude { get; set; }
         public string Longitude { get; set; }
         public string Status { get; set; }
-        
+        public UserViewModel User { get; set; }
+
         public MarkerViewModel FromModel(Marker marker)
         {
             return new MarkerViewModel()

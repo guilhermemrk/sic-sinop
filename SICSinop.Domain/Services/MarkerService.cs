@@ -1,7 +1,9 @@
+using Microsoft.EntityFrameworkCore;
 using SICSinop.Domain.Entities;
 using SICSinop.Domain.Interfaces.Repository;
 using SICSinop.Domain.Interfaces.Services;
 using SICSinop.Domain.Model;
+using SICSinop.Domain.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +20,14 @@ namespace SICSinop.Domain.Services
             _markerRepository = markerRepository;
         }
 
+        private IRepository<Marker> Repository { get => (_markerRepository as IRepository<Marker>); }
+
+        // @TODO! Add Decimal datatype options to XSLT
+
         public ICollection<MarkerViewModel> GetAllMarkers()
         {
-            return _markerRepository.GetAllMarkers()
+            return Repository.GetAll()
+                .Include(x => x.User)
                 .Select(marker => new MarkerViewModel()
                 {
                     Id = marker.Id,
@@ -30,7 +37,8 @@ namespace SICSinop.Domain.Services
                     Latitude = marker.Latitude,
                     Longitude = marker.Longitude,
                     Status = marker.Status,
-                    
+                    User = (new UserViewModel()).FromModel(marker.User)
+
                 })
                 .ToList();
         }

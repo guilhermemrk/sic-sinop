@@ -5,15 +5,15 @@
     <xsl:template match="/">
         <xsl:for-each select="/root">
             <xsl:for-each select="model">
-                <xsl:apply-templates mode="gen-entity" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-controller" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-irepository" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-iservice" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-model" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-viewmodel" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-service" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-map" select="."></xsl:apply-templates>
-                <xsl:apply-templates mode="gen-repository" select="."></xsl:apply-templates>
+				<xsl:choose><xsl:when test="genentity = 'true'"><xsl:apply-templates mode="gen-entity" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="gencontroller = 'true'"><xsl:apply-templates mode="gen-controller" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="genirepository = 'true'"><xsl:apply-templates mode="gen-irepository" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="geniservice = 'true'"><xsl:apply-templates mode="gen-iservice" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="genmodel = 'true'"><xsl:apply-templates mode="gen-model" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="genviewmodel = 'true'"><xsl:apply-templates mode="gen-viewmodel" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="genservice = 'true'"><xsl:apply-templates mode="gen-service" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="genmap = 'true'"><xsl:apply-templates mode="gen-map" select="."></xsl:apply-templates></xsl:when></xsl:choose>
+				<xsl:choose><xsl:when test="genrepository = 'true'"><xsl:apply-templates mode="gen-repository" select="."></xsl:apply-templates></xsl:when></xsl:choose>
             </xsl:for-each>
 		</xsl:for-each>
 	</xsl:template>
@@ -49,11 +49,9 @@ namespace SICSinop.Domain.Entities
         <xsl:for-each select="relationships/relationship">
             <xsl:choose>
                 <xsl:when test="rhas = 'many'">
-        public ICollection<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="rname"/><xsl:value-of select="$MORETHAN"/><xsl:value-of select="rplural"/> { get; set; } = new List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="rname"/><xsl:value-of select="$MORETHAN"/>();
-                </xsl:when>
+        public ICollection<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="rname"/><xsl:value-of select="$MORETHAN"/><xsl:value-of select="rplural"/> { get; set; } = new List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="rname"/><xsl:value-of select="$MORETHAN"/>();</xsl:when>
                 <xsl:when test="rhas = 'one'">
-        public <xsl:value-of select="rname"/><xsl:text> </xsl:text><xsl:value-of select="rname"/> { get; set; }
-                </xsl:when>
+        public <xsl:value-of select="rname"/><xsl:text> </xsl:text><xsl:value-of select="rname"/> { get; set; }</xsl:when>
             </xsl:choose>
         </xsl:for-each>
     }

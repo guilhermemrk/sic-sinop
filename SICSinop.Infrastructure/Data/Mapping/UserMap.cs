@@ -29,6 +29,10 @@ namespace SICSinop.Domain.Data.Mapping
                 .HasMany(x => x.Markers)
                 .WithOne(x => x.User);
                     
+            builder
+                .HasMany(x => x.MarkerComments)
+                .WithOne(x => x.User);
+                    
         }
     }
 }

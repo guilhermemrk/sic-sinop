@@ -14,6 +14,6 @@ namespace SICSinop.Domain.Entities
         public string Status { get; set; }
         
         public User User { get; set; }
-                
+        public ICollection<MarkerComment>MarkerComments { get; set; } = new List<MarkerComment>();
     }
 }

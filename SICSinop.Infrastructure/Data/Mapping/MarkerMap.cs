@@ -31,6 +31,10 @@ namespace SICSinop.Domain.Data.Mapping
                 .HasOne(x => x.User)
                 .WithMany(x => x.Markers)
 	            .HasForeignKey(x => x.UserId);
+            builder
+                .HasMany(x => x.MarkerComments)
+                .WithOne(x => x.Marker);
+                    
         }
     }
 }
