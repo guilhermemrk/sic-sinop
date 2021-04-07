@@ -9,5 +9,8 @@ namespace SICSinop.Domain.Interfaces.Services
     {
         ICollection<UserViewModel> GetAllUsers();
         UserViewModel GetUserById(int id);
+		UserModel SaveUser(UserModel model);
+        UserModel UpdateUser(UserModel model);
+        bool DeleteUser(int id);
     }
 }

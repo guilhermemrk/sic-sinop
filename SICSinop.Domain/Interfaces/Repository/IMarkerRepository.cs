@@ -9,10 +9,9 @@ namespace SICSinop.Domain.Interfaces.Repository
     {
         List<Marker> GetAllMarkers();
         Marker GetMarkerById(int id);
-        Marker CreateMarker(Markermarker);
-        Marker UpdateMarker(Markermarker);
+        Marker CreateMarker(Marker marker);
+        Marker UpdateMarker(Marker marker);
         void CreateMarkerList(List<Marker> list);
-        Marker DeleteMarker(Markermarker);
+        Marker DeleteMarker(Marker marker);
 	}
-}
 }

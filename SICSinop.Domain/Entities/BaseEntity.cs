@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SICSinop.Domain.Entities
 {
-    public class BasicEntity : IEntity
+    public class BaseEntity : IEntity
     {
         public long Id { get; set; }
     }

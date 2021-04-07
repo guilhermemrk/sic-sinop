@@ -130,17 +130,16 @@ namespace SICSinop.Domain.Interfaces.Repository
     {
         List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="name"/><xsl:value-of select="$MORETHAN"/> GetAll<xsl:value-of select="plural"/>();
         <xsl:value-of select="name"/> Get<xsl:value-of select="name"/>ById(int id);
-        <xsl:value-of select="name"/> Create<xsl:value-of select="name"/>(<xsl:value-of select="name"/> <xsl:value-of select="id"/>);
-        <xsl:value-of select="name"/> Update<xsl:value-of select="name"/>(<xsl:value-of select="name"/> <xsl:value-of select="id"/>);
+        <xsl:value-of select="name"/> Create<xsl:value-of select="name"/>(<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="id"/>);
+        <xsl:value-of select="name"/> Update<xsl:value-of select="name"/>(<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="id"/>);
         void Create<xsl:value-of select="name"/>List(List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="name"/><xsl:value-of select="$MORETHAN"/> list);
-        <xsl:value-of select="name"/> Delete<xsl:value-of select="name"/>(<xsl:value-of select="name"/> <xsl:value-of select="id"/>);
+        <xsl:value-of select="name"/> Delete<xsl:value-of select="name"/>(<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="id"/>);
 	}
-}
 }[_END_FILE_]</xsl:template>
 
 <!-- IService -->
 
-<xsl:template mode="gen-iservice" match="model">[_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\I<xsl:value-of select="name"/>S<xsl:value-of select="name"/>ervice.cs]using SICSinop.Domain.Model;
+<xsl:template mode="gen-iservice" match="model">[_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\I<xsl:value-of select="name"/>Service.cs]using SICSinop.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SICSinop.Domain.Data.Repository
 {
-    public class Repository<T> : IRepository<T> where T : BasicEntity
+    public class Repository<T> : IRepository<T> where T : BaseEntity
     {
         protected readonly DbContext MainContext;
 

@@ -9,5 +9,8 @@ namespace SICSinop.Domain.Interfaces.Services
     {
         ICollection<MarkerViewModel> GetAllMarkers();
         MarkerViewModel GetMarkerById(int id);
+		MarkerModel SaveMarker(MarkerModel model);
+        MarkerModel UpdateMarker(MarkerModel model);
+        bool DeleteMarker(int id);
     }
 }
