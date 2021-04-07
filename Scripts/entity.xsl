@@ -29,7 +29,7 @@ using System.Text;
 
 namespace SICSinop.Domain.Entities
 {
-    public class <xsl:value-of select="name" disable-output-escaping="yes"/> : BasicEntity
+    public class <xsl:value-of select="name" disable-output-escaping="yes"/> : BaseEntity
     {
         <xsl:for-each select="properties/property">
             <xsl:variable name="vtype">
@@ -95,6 +95,25 @@ namespace SICSinop.API.Controllers
         {
             return _<xsl:value-of select="id"/>Service.Get<xsl:value-of select="name"/>ById(id);
         }
+
+        [HttpPost]
+        public <xsl:value-of select="name"/>Model Post([FromBody] <xsl:value-of select="name"/>Model model)
+        {
+            return _<xsl:value-of select="id"/>Service.Save<xsl:value-of select="name"/>(model);
+        }
+
+        [HttpPut]
+        public <xsl:value-of select="name"/>Model Put([FromBody] <xsl:value-of select="name"/>Model model)
+        {
+            return _<xsl:value-of select="id"/>Service.Update<xsl:value-of select="name"/>(model);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public bool Delete(int id)
+        {
+            return _<xsl:value-of select="id"/>Service.Delete<xsl:value-of select="name"/>(id);
+        }
     }
 }[_END_FILE_]</xsl:template>
 
@@ -111,12 +130,17 @@ namespace SICSinop.Domain.Interfaces.Repository
     {
         List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="name"/><xsl:value-of select="$MORETHAN"/> GetAll<xsl:value-of select="plural"/>();
         <xsl:value-of select="name"/> Get<xsl:value-of select="name"/>ById(int id);
-    }
+        <xsl:value-of select="name"/> Create<xsl:value-of select="name"/>(<xsl:value-of select="name"/> <xsl:value-of select="id"/>);
+        <xsl:value-of select="name"/> Update<xsl:value-of select="name"/>(<xsl:value-of select="name"/> <xsl:value-of select="id"/>);
+        void Create<xsl:value-of select="name"/>List(List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="name"/><xsl:value-of select="$MORETHAN"/> list);
+        <xsl:value-of select="name"/> Delete<xsl:value-of select="name"/>(<xsl:value-of select="name"/> <xsl:value-of select="id"/>);
+	}
+}
 }[_END_FILE_]</xsl:template>
 
 <!-- IService -->
 
-<xsl:template mode="gen-iservice" match="model">[_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\I<xsl:value-of select="name"/>Service.cs]using SICSinop.Domain.Model;
+<xsl:template mode="gen-iservice" match="model">[_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\I<xsl:value-of select="name"/>S<xsl:value-of select="name"/>ervice.cs]using SICSinop.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -127,6 +151,9 @@ namespace SICSinop.Domain.Interfaces.Services
     {
         ICollection<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="name"/>ViewModel<xsl:value-of select="$MORETHAN"/> GetAll<xsl:value-of select="plural"/>();
         <xsl:value-of select="name"/>ViewModel Get<xsl:value-of select="name"/>ById(int id);
+		<xsl:value-of select="name"/>Model Save<xsl:value-of select="name"/>(<xsl:value-of select="name"/>Model model);
+        <xsl:value-of select="name"/>Model Update<xsl:value-of select="name"/>(<xsl:value-of select="name"/>Model model);
+        bool Delete<xsl:value-of select="name"/>(int id);
     }
 }[_END_FILE_]</xsl:template>
 
@@ -238,6 +265,64 @@ namespace SICSinop.Domain.Services
                 </xsl:for-each>
             } : null);
         }
+		
+		public <xsl:value-of select="name"/>Model Save<xsl:value-of select="name"/>(<xsl:value-of select="name"/>Model model)
+        {
+            var <xsl:value-of select="id"/> = new <xsl:value-of select="name"/>()
+            {
+                <xsl:for-each select="properties/property">
+                <xsl:value-of select="pname"/> = model.<xsl:value-of select="pname"/>,
+                </xsl:for-each>
+            };
+			
+            <xsl:value-of select="id"/> = _<xsl:value-of select="id"/>Repository.Create<xsl:value-of select="name"/>(<xsl:value-of select="id"/>);
+			
+            return new <xsl:value-of select="name"/>Model()
+            {
+                <xsl:for-each select="properties/property">
+                <xsl:value-of select="pname"/> = <xsl:value-of select="$modelid"/>.<xsl:value-of select="pname"/>,
+                </xsl:for-each>
+            };
+        }
+
+        public <xsl:value-of select="name"/>Model Update<xsl:value-of select="name"/>(<xsl:value-of select="name"/>Model model)
+        {
+            var <xsl:value-of select="id"/> = new <xsl:value-of select="name"/>()
+            {
+                <xsl:for-each select="properties/property">
+                <xsl:value-of select="pname"/> = model.<xsl:value-of select="pname"/>,
+                </xsl:for-each>
+            };
+			
+            <xsl:value-of select="id"/> = _<xsl:value-of select="id"/>Repository.Update<xsl:value-of select="name"/>(<xsl:value-of select="id"/>);
+			
+            return new <xsl:value-of select="name"/>Model()
+            {
+                Id = <xsl:value-of select="$modelid"/>.Id,
+				<xsl:for-each select="properties/property"><xsl:choose><xsl:when test="pname != 'Id'"><xsl:value-of select="pname"/> = model.<xsl:value-of select="pname"/>,
+				</xsl:when></xsl:choose></xsl:for-each>
+            };
+        }
+
+        public bool Delete<xsl:value-of select="name"/>(int id)
+        {
+            try
+            {
+                var <xsl:value-of select="id"/> = _<xsl:value-of select="id"/>Repository.Get<xsl:value-of select="name"/>ById(id);
+                if (<xsl:value-of select="id"/> == null)
+                {
+                    throw new Exception("Not found!");
+                }
+
+                _<xsl:value-of select="id"/>Repository.Delete<xsl:value-of select="name"/>(<xsl:value-of select="id"/>);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }[_END_FILE_]</xsl:template>
 
@@ -307,6 +392,33 @@ namespace SICSinop.Domain.Data.Repository
         public <xsl:value-of select="name"/> Get<xsl:value-of select="name"/>ById(int id)
         {
             return FindById(id);
+        }
+
+        public <xsl:value-of select="name"/> Create<xsl:value-of select="name"/>(<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="id"/>)
+        {
+            Create(<xsl:value-of select="id"/>);
+            SaveChanges();
+            return <xsl:value-of select="id"/>;
+        }
+
+        public <xsl:value-of select="name"/> Update<xsl:value-of select="name"/>(<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="id"/>)
+        {
+            Update(<xsl:value-of select="id"/>);
+            SaveChanges();
+            return <xsl:value-of select="id"/>;
+        }
+
+        public void Create<xsl:value-of select="name"/>List(List<xsl:value-of select="$LESSTHAN"/><xsl:value-of select="name"/><xsl:value-of select="$MORETHAN"/> list)
+        {
+            Create(list);
+            SaveChanges();
+        }
+
+        public <xsl:value-of select="name"/> Delete<xsl:value-of select="name"/>(<xsl:value-of select="name"/><xsl:text> </xsl:text><xsl:value-of select="id"/>)
+        {
+            Remove(<xsl:value-of select="id"/>);
+            SaveChanges();
+            return <xsl:value-of select="id"/>;
         }
     }
 }

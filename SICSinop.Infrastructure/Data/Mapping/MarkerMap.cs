@@ -15,7 +15,6 @@ namespace SICSinop.Domain.Data.Mapping
                 .ToTable("Marker");
             builder
                 .HasKey(x => x.Id);
-
             builder
                 .Property(x => x.UserId);
             builder
@@ -28,11 +27,10 @@ namespace SICSinop.Domain.Data.Mapping
                 .Property(x => x.Longitude);
             builder
                 .Property(x => x.Status);
-
             builder
                 .HasOne(x => x.User)
                 .WithMany(x => x.Markers)
-                .HasForeignKey(x => x.UserId);
+	            .HasForeignKey(x => x.UserId);
         }
     }
 }

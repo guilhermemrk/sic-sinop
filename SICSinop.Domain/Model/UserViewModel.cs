@@ -7,12 +7,12 @@ namespace SICSinop.Domain.Model
 {
     public class UserViewModel
     {
-        public Int64 Id { get; set; }
-        public String Name { get; set; }
-        public String CPF { get; set; }
-        public String Email { get; set; }
-        public String CEP { get; set; }
-        public Int64 Rank { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string CPF { get; set; }
+        public string Email { get; set; }
+        public string CEP { get; set; }
+        public int Rank { get; set; }
         
         public UserViewModel FromModel(User user)
         {

@@ -22,6 +22,33 @@ namespace SICSinop.Domain.Data.Repository
         {
             return FindById(id);
         }
+
+        public Marker CreateMarker(Marker marker)
+        {
+            Create(marker);
+            SaveChanges();
+            return marker;
+        }
+
+        public Marker UpdateMarker(Marker marker)
+        {
+            Update(marker);
+            SaveChanges();
+            return marker;
+        }
+
+        public void CreateMarkerList(List<Marker> list)
+        {
+            Create(list);
+            SaveChanges();
+        }
+
+        public Marker DeleteMarker(Marker marker)
+        {
+            Remove(marker);
+            SaveChanges();
+            return marker;
+        }
     }
 }
 

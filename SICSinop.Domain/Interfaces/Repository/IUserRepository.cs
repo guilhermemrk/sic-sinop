@@ -9,5 +9,10 @@ namespace SICSinop.Domain.Interfaces.Repository
     {
         List<User> GetAllUsers();
         User GetUserById(int id);
-    }
+        User CreateUser(Useruser);
+        User UpdateUser(Useruser);
+        void CreateUserList(List<User> list);
+        User DeleteUser(Useruser);
+	}
+}
 }

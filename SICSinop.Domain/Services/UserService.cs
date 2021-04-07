@@ -48,5 +48,79 @@ namespace SICSinop.Domain.Services
                 
             } : null);
         }
+		
+		public UserModel SaveUser(UserModel model)
+        {
+            var user = new User()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CPF = model.CPF,
+                Email = model.Email,
+                CEP = model.CEP,
+                Rank = model.Rank,
+                
+            };
+			
+            user = _userRepository.CreateUser(user);
+			
+            return new UserModel()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                CPF = user.CPF,
+                Email = user.Email,
+                CEP = user.CEP,
+                Rank = user.Rank,
+                
+            };
+        }
+
+        public UserModel UpdateUser(UserModel model)
+        {
+            var user = new User()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CPF = model.CPF,
+                Email = model.Email,
+                CEP = model.CEP,
+                Rank = model.Rank,
+                
+            };
+			
+            user = _userRepository.UpdateUser(user);
+			
+            return new UserModel()
+            {
+                Id = user.Id,
+				Name = model.Name,
+				CPF = model.CPF,
+				Email = model.Email,
+				CEP = model.CEP,
+				Rank = model.Rank,
+				
+            };
+        }
+
+        public bool DeleteUser(int id)
+        {
+            try
+            {
+                var user = _userRepository.GetUserById(id);
+                if (user == null)
+                {
+                    throw new Exception("Not found!");
+                }
+
+                _userRepository.DeleteUser(user);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

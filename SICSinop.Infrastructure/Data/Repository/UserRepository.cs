@@ -17,10 +17,37 @@ namespace SICSinop.Domain.Data.Repository
         {
             return GetAll().ToList();
         }
-                                            
+
         public User GetUserById(int id)
         {
             return FindById(id);
+        }
+
+        public User CreateUser(User user)
+        {
+            Create(user);
+            SaveChanges();
+            return user;
+        }
+
+        public User UpdateUser(User user)
+        {
+            Update(user);
+            SaveChanges();
+            return user;
+        }
+
+        public void CreateUserList(List<User> list)
+        {
+            Create(list);
+            SaveChanges();
+        }
+
+        public User DeleteUser(User user)
+        {
+            Remove(user);
+            SaveChanges();
+            return user;
         }
     }
 }

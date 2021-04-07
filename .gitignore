@@ -5,6 +5,9 @@
 /.vs
 /SICSinop.API/bin
 /SICSinop.API/obj
+/SICSinop.Domain/bin
 /SICSinop.Domain/obj
 /SICSinop.Infrastructure/bin
 /SICSinop.Infrastructure/obj
+/bin
+/obj

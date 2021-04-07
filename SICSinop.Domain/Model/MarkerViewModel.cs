@@ -7,13 +7,13 @@ namespace SICSinop.Domain.Model
 {
     public class MarkerViewModel
     {
-        public Int64 Id { get; set; }
-        public Int64 UserId { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public String Latitude { get; set; }
-        public String Longitude { get; set; }
-        public String Status { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Status { get; set; }
         
         public MarkerViewModel FromModel(Marker marker)
         {

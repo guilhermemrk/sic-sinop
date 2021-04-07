@@ -1,153 +1,153 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
-    <model>
-        <name>User</name>
-        <plural>Users</plural>
-        <id>user</id>
-        <properties>
-            <property>
-                <pname>Id</pname>
-                <ptitle>ID</ptitle>
-                <pid>id</pid>
-                <ptype>Int64</ptype>
-                <pdescription>User's ID</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>true</pskiponentity>
+	<model>
+		<name>User</name>
+		<plural>Users</plural>
+		<id>user</id>
+		<properties>
+			<property>
+				<pname>Id</pname>
+				<ptitle>ID</ptitle>
+				<pid>id</pid>
+				<ptype>long</ptype>
+				<pdescription>User's ID</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>true</pskiponentity>
 			</property>
-            <property>
-                <pname>Name</pname>
-                <ptitle>Nome</ptitle>
-                <pid>name</pid>
-                <ptype>String</ptype>
-                <pdescription>User's name</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Name</pname>
+				<ptitle>Nome</ptitle>
+				<pid>name</pid>
+				<ptype>string</ptype>
+				<pdescription>User's name</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>CPF</pname>
-                <ptitle>CPF</ptitle>
-                <pid>cpf</pid>
-                <ptype>String</ptype>
-                <pdescription>Cadastro de Pessoa Física</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>CPF</pname>
+				<ptitle>CPF</ptitle>
+				<pid>cpf</pid>
+				<ptype>string</ptype>
+				<pdescription>Cadastro de Pessoa Física</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Email</pname>
-                <ptitle>Email</ptitle>
-                <pid>email</pid>
-                <ptype>String</ptype>
-                <pdescription>User's Email</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Email</pname>
+				<ptitle>Email</ptitle>
+				<pid>email</pid>
+				<ptype>string</ptype>
+				<pdescription>User's Email</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>CEP</pname>
-                <ptitle>CEP</ptitle>
-                <pid>cep</pid>
-                <ptype>String</ptype>
-                <pdescription>Código Postal</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>CEP</pname>
+				<ptitle>CEP</ptitle>
+				<pid>cep</pid>
+				<ptype>string</ptype>
+				<pdescription>Código Postal</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Rank</pname>
-                <ptitle>Rank</ptitle>
-                <pid>rank</pid>
-                <ptype>Int64</ptype>
-                <pdescription>User Permission</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Rank</pname>
+				<ptitle>Rank</ptitle>
+				<pid>rank</pid>
+				<ptype>int</ptype>
+				<pdescription>User Permission</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
 		</properties>
-        <relationships>
-            <relationship>
-                <rname>Marker</rname>
-                <rplural>Markers</rplural>
-                <rid>marker</rid>
-                <rdescription>User relationship with Marker</rdescription>
-                <rhas>many</rhas>
-            </relationship>
-        </relationships>
+		<relationships>
+			<relationship>
+				<rname>Marker</rname>
+				<rplural>Markers</rplural>
+				<rid>marker</rid>
+				<rdescription>User relationship with Marker</rdescription>
+				<rhas>many</rhas>
+			</relationship>
+		</relationships>
 	</model>
-    <model>
-        <name>Marker</name>
-        <plural>Markers</plural>
-        <id>marker</id>
-        <properties>
-            <property>
-                <pname>Id</pname>
-                <ptitle>ID</ptitle>
-                <pid>id</pid>
-                <ptype>Int64</ptype>
-                <pdescription>Marker's ID</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>true</pskiponentity>
+	<model>
+		<name>Marker</name>
+		<plural>Markers</plural>
+		<id>marker</id>
+		<properties>
+			<property>
+				<pname>Id</pname>
+				<ptitle>ID</ptitle>
+				<pid>id</pid>
+				<ptype>long</ptype>
+				<pdescription>Marker's ID</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>true</pskiponentity>
 			</property>
-            <property>
-                <pname>UserId</pname>
-                <ptitle>User ID</ptitle>
-                <pid>userid</pid>
-                <ptype>Int64</ptype>
-                <pdescription>User's ID</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>UserId</pname>
+				<ptitle>User ID</ptitle>
+				<pid>userid</pid>
+				<ptype>long</ptype>
+				<pdescription>User's ID</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Title</pname>
-                <ptitle>Title</ptitle>
-                <pid>title</pid>
-                <ptype>String</ptype>
-                <pdescription>Marker's Title</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Title</pname>
+				<ptitle>Title</ptitle>
+				<pid>title</pid>
+				<ptype>string</ptype>
+				<pdescription>Marker's Title</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Description</pname>
-                <ptitle>Description</ptitle>
-                <pid>description</pid>
-                <ptype>String</ptype>
-                <pdescription>Marker's Description</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Description</pname>
+				<ptitle>Description</ptitle>
+				<pid>description</pid>
+				<ptype>string</ptype>
+				<pdescription>Marker's Description</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Latitude</pname>
-                <ptitle>Latitude</ptitle>
-                <pid>latitude</pid>
-                <ptype>String</ptype>
-                <pdescription>Marker's Latitude</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Latitude</pname>
+				<ptitle>Latitude</ptitle>
+				<pid>latitude</pid>
+				<ptype>string</ptype>
+				<pdescription>Marker's Latitude</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Longitude</pname>
-                <ptitle>Longitude</ptitle>
-                <pid>longitude</pid>
-                <ptype>String</ptype>
-                <pdescription>Marker's Longitude</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Longitude</pname>
+				<ptitle>Longitude</ptitle>
+				<pid>longitude</pid>
+				<ptype>string</ptype>
+				<pdescription>Marker's Longitude</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
-            <property>
-                <pname>Status</pname>
-                <ptitle>Status</ptitle>
-                <pid>status</pid>
-                <ptype>String</ptype>
-                <pdescription>1- Pending; 2- Working on; 3- Fixed</pdescription>
-                <pnullable>false</pnullable>
-                <pskiponentity>false</pskiponentity>
+			<property>
+				<pname>Status</pname>
+				<ptitle>Status</ptitle>
+				<pid>status</pid>
+				<ptype>string</ptype>
+				<pdescription>1- Pending; 2- Working on; 3- Fixed</pdescription>
+				<pnullable>false</pnullable>
+				<pskiponentity>false</pskiponentity>
 			</property>
 		</properties>
-        <relationships>
-            <relationship>
-                <rname>User</rname>
-                <rplural>Users</rplural>
-                <rid>user</rid>
-                <rdescription>Marker relationship with User</rdescription>
+		<relationships>
+			<relationship>
+				<rname>User</rname>
+				<rplural>Users</rplural>
+				<rid>user</rid>
+				<rdescription>Marker relationship with User</rdescription>
 				<rhas>one</rhas>
 				<usefield>UserId</usefield>
-            </relationship>
-        </relationships>
+			</relationship>
+		</relationships>
 	</model>
 </root>

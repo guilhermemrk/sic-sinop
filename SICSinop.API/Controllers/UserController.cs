@@ -15,7 +15,7 @@ namespace SICSinop.API.Controllers
         private readonly IUserService _userService;
 
         public UserController(IUserService userService)
-        {   
+        {
             _userService = userService;
         }
 
@@ -31,6 +31,25 @@ namespace SICSinop.API.Controllers
         public UserViewModel Get(int id)
         {
             return _userService.GetUserById(id);
+        }
+
+        [HttpPost]
+        public UserModel Post([FromBody] UserModel model)
+        {
+            return _userService.SaveUser(model);
+        }
+
+        [HttpPut]
+        public UserModel Put([FromBody] UserModel model)
+        {
+            return _userService.UpdateUser(model);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public bool Delete(int id)
+        {
+            return _userService.DeleteUser(id);
         }
     }
 }

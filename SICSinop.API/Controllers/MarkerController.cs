@@ -32,5 +32,24 @@ namespace SICSinop.API.Controllers
         {
             return _markerService.GetMarkerById(id);
         }
+
+        [HttpPost]
+        public MarkerModel Post([FromBody] MarkerModel model)
+        {
+            return _markerService.SaveMarker(model);
+        }
+
+        [HttpPut]
+        public MarkerModel Put([FromBody] MarkerModel model)
+        {
+            return _markerService.UpdateMarker(model);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public bool Delete(int id)
+        {
+            return _markerService.DeleteMarker(id);
+        }
     }
 }

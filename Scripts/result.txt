@@ -4,13 +4,13 @@ using System.Text;
 
 namespace SICSinop.Domain.Entities
 {
-    public class User : BasicEntity
+    public class User : BaseEntity
     {
-        public String Name { get; set; }
-        public String CPF { get; set; }
-        public String Email { get; set; }
-        public String CEP { get; set; }
-        public Int64 Rank { get; set; }
+        public string Name { get; set; }
+        public string CPF { get; set; }
+        public string Email { get; set; }
+        public string CEP { get; set; }
+        public int Rank { get; set; }
         
         public ICollection<Marker>Markers { get; set; } = new List<Marker>();
                 
@@ -49,6 +49,25 @@ namespace SICSinop.API.Controllers
         {
             return _userService.GetUserById(id);
         }
+
+        [HttpPost]
+        public UserModel Post([FromBody] UserModel model)
+        {
+            return _userService.SaveUser(model);
+        }
+
+        [HttpPut]
+        public UserModel Put([FromBody] UserModel model)
+        {
+            return _userService.UpdateUser(model);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public bool Delete(int id)
+        {
+            return _userService.DeleteUser(id);
+        }
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Repository\IUserRepository.cs]using SICSinop.Domain.Entities;
 using System;
@@ -61,8 +80,13 @@ namespace SICSinop.Domain.Interfaces.Repository
     {
         List<User> GetAllUsers();
         User GetUserById(int id);
-    }
-}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IUserService.cs]using SICSinop.Domain.Model;
+        User CreateUser(Useruser);
+        User UpdateUser(Useruser);
+        void CreateUserList(List<User> list);
+        User DeleteUser(Useruser);
+	}
+}
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IUserSUserervice.cs]using SICSinop.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -73,6 +97,9 @@ namespace SICSinop.Domain.Interfaces.Services
     {
         ICollection<UserViewModel> GetAllUsers();
         UserViewModel GetUserById(int id);
+		UserModel SaveUser(UserModel model);
+        UserModel UpdateUser(UserModel model);
+        bool DeleteUser(int id);
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\UserModel.cs]using System;
 using System.Collections.Generic;
@@ -82,12 +109,12 @@ namespace SICSinop.Domain.Model
 {
     public class UserModel
     {
-        public Int64 Id { get; set; }
-        public String Name { get; set; }
-        public String CPF { get; set; }
-        public String Email { get; set; }
-        public String CEP { get; set; }
-        public Int64 Rank { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string CPF { get; set; }
+        public string Email { get; set; }
+        public string CEP { get; set; }
+        public int Rank { get; set; }
         
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\UserViewModel.cs]using SICSinop.Domain.Entities;
@@ -99,12 +126,12 @@ namespace SICSinop.Domain.Model
 {
     public class UserViewModel
     {
-        public Int64 Id { get; set; }
-        public String Name { get; set; }
-        public String CPF { get; set; }
-        public String Email { get; set; }
-        public String CEP { get; set; }
-        public Int64 Rank { get; set; }
+        public long Id { get; set; }
+        public string Name { get; set; }
+        public string CPF { get; set; }
+        public string Email { get; set; }
+        public string CEP { get; set; }
+        public int Rank { get; set; }
         
         public UserViewModel FromModel(User user)
         {
@@ -170,6 +197,80 @@ namespace SICSinop.Domain.Services
                 
             } : null);
         }
+		
+		public UserModel SaveUser(UserModel model)
+        {
+            var user = new User()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CPF = model.CPF,
+                Email = model.Email,
+                CEP = model.CEP,
+                Rank = model.Rank,
+                
+            };
+			
+            user = _userRepository.CreateUser(user);
+			
+            return new UserModel()
+            {
+                Id = user.Id,
+                Name = user.Name,
+                CPF = user.CPF,
+                Email = user.Email,
+                CEP = user.CEP,
+                Rank = user.Rank,
+                
+            };
+        }
+
+        public UserModel UpdateUser(UserModel model)
+        {
+            var user = new User()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                CPF = model.CPF,
+                Email = model.Email,
+                CEP = model.CEP,
+                Rank = model.Rank,
+                
+            };
+			
+            user = _userRepository.UpdateUser(user);
+			
+            return new UserModel()
+            {
+                Id = user.Id,
+				Name = model.Name,
+				CPF = model.CPF,
+				Email = model.Email,
+				CEP = model.CEP,
+				Rank = model.Rank,
+				
+            };
+        }
+
+        public bool DeleteUser(int id)
+        {
+            try
+            {
+                var user = _userRepository.GetUserById(id);
+                if (user == null)
+                {
+                    throw new Exception("Not found!");
+                }
+
+                _userRepository.DeleteUser(user);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Mapping\UserMap.cs]using SICSinop.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -229,6 +330,33 @@ namespace SICSinop.Domain.Data.Repository
         {
             return FindById(id);
         }
+
+        public User CreateUser(User user)
+        {
+            Create(user);
+            SaveChanges();
+            return user;
+        }
+
+        public User UpdateUser(User user)
+        {
+            Update(user);
+            SaveChanges();
+            return user;
+        }
+
+        public void CreateUserList(List<User> list)
+        {
+            Create(list);
+            SaveChanges();
+        }
+
+        public User DeleteUser(User user)
+        {
+            Remove(user);
+            SaveChanges();
+            return user;
+        }
     }
 }
 
@@ -238,14 +366,14 @@ using System.Text;
 
 namespace SICSinop.Domain.Entities
 {
-    public class Marker : BasicEntity
+    public class Marker : BaseEntity
     {
-        public Int64 UserId { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public String Latitude { get; set; }
-        public String Longitude { get; set; }
-        public String Status { get; set; }
+        public long UserId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Status { get; set; }
         
         public User User { get; set; }
                 
@@ -284,6 +412,25 @@ namespace SICSinop.API.Controllers
         {
             return _markerService.GetMarkerById(id);
         }
+
+        [HttpPost]
+        public MarkerModel Post([FromBody] MarkerModel model)
+        {
+            return _markerService.SaveMarker(model);
+        }
+
+        [HttpPut]
+        public MarkerModel Put([FromBody] MarkerModel model)
+        {
+            return _markerService.UpdateMarker(model);
+        }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public bool Delete(int id)
+        {
+            return _markerService.DeleteMarker(id);
+        }
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Repository\IMarkerRepository.cs]using SICSinop.Domain.Entities;
 using System;
@@ -296,8 +443,13 @@ namespace SICSinop.Domain.Interfaces.Repository
     {
         List<Marker> GetAllMarkers();
         Marker GetMarkerById(int id);
-    }
-}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IMarkerService.cs]using SICSinop.Domain.Model;
+        Marker CreateMarker(Markermarker);
+        Marker UpdateMarker(Markermarker);
+        void CreateMarkerList(List<Marker> list);
+        Marker DeleteMarker(Markermarker);
+	}
+}
+}[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Interfaces\Services\IMarkerSMarkerervice.cs]using SICSinop.Domain.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -308,6 +460,9 @@ namespace SICSinop.Domain.Interfaces.Services
     {
         ICollection<MarkerViewModel> GetAllMarkers();
         MarkerViewModel GetMarkerById(int id);
+		MarkerModel SaveMarker(MarkerModel model);
+        MarkerModel UpdateMarker(MarkerModel model);
+        bool DeleteMarker(int id);
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\MarkerModel.cs]using System;
 using System.Collections.Generic;
@@ -317,13 +472,13 @@ namespace SICSinop.Domain.Model
 {
     public class MarkerModel
     {
-        public Int64 Id { get; set; }
-        public Int64 UserId { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public String Latitude { get; set; }
-        public String Longitude { get; set; }
-        public String Status { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Status { get; set; }
         
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Domain\Model\MarkerViewModel.cs]using SICSinop.Domain.Entities;
@@ -335,13 +490,13 @@ namespace SICSinop.Domain.Model
 {
     public class MarkerViewModel
     {
-        public Int64 Id { get; set; }
-        public Int64 UserId { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public String Latitude { get; set; }
-        public String Longitude { get; set; }
-        public String Status { get; set; }
+        public long Id { get; set; }
+        public long UserId { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
+        public string Status { get; set; }
         
         public MarkerViewModel FromModel(Marker marker)
         {
@@ -410,6 +565,84 @@ namespace SICSinop.Domain.Services
                 
             } : null);
         }
+		
+		public MarkerModel SaveMarker(MarkerModel model)
+        {
+            var marker = new Marker()
+            {
+                Id = model.Id,
+                UserId = model.UserId,
+                Title = model.Title,
+                Description = model.Description,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                Status = model.Status,
+                
+            };
+			
+            marker = _markerRepository.CreateMarker(marker);
+			
+            return new MarkerModel()
+            {
+                Id = marker.Id,
+                UserId = marker.UserId,
+                Title = marker.Title,
+                Description = marker.Description,
+                Latitude = marker.Latitude,
+                Longitude = marker.Longitude,
+                Status = marker.Status,
+                
+            };
+        }
+
+        public MarkerModel UpdateMarker(MarkerModel model)
+        {
+            var marker = new Marker()
+            {
+                Id = model.Id,
+                UserId = model.UserId,
+                Title = model.Title,
+                Description = model.Description,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                Status = model.Status,
+                
+            };
+			
+            marker = _markerRepository.UpdateMarker(marker);
+			
+            return new MarkerModel()
+            {
+                Id = marker.Id,
+				UserId = model.UserId,
+				Title = model.Title,
+				Description = model.Description,
+				Latitude = model.Latitude,
+				Longitude = model.Longitude,
+				Status = model.Status,
+				
+            };
+        }
+
+        public bool DeleteMarker(int id)
+        {
+            try
+            {
+                var marker = _markerRepository.GetMarkerById(id);
+                if (marker == null)
+                {
+                    throw new Exception("Not found!");
+                }
+
+                _markerRepository.DeleteMarker(marker);
+
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }[_END_FILE_][_BEGIN_FILE_: SICSinop.Infrastructure\Data\Mapping\MarkerMap.cs]using SICSinop.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -442,7 +675,8 @@ namespace SICSinop.Domain.Data.Mapping
                 .Property(x => x.Status);
             builder
                 .HasOne(x => x.User)
-                .WithMany(x => x.Markers);
+                .WithMany(x => x.Markers)
+	            .HasForeignKey(x => x.UserId);
         }
     }
 }
@@ -469,6 +703,33 @@ namespace SICSinop.Domain.Data.Repository
         public Marker GetMarkerById(int id)
         {
             return FindById(id);
+        }
+
+        public Marker CreateMarker(Marker marker)
+        {
+            Create(marker);
+            SaveChanges();
+            return marker;
+        }
+
+        public Marker UpdateMarker(Marker marker)
+        {
+            Update(marker);
+            SaveChanges();
+            return marker;
+        }
+
+        public void CreateMarkerList(List<Marker> list)
+        {
+            Create(list);
+            SaveChanges();
+        }
+
+        public Marker DeleteMarker(Marker marker)
+        {
+            Remove(marker);
+            SaveChanges();
+            return marker;
         }
     }
 }
