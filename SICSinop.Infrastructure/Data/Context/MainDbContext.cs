@@ -24,6 +24,3 @@ namespace SICSinop.Infrastructure.Data.Context
 
 // dotnet ef migrations add InitialCreate -s SICSinop.API -p SICSinop.Infrastructure
 // dotnet ef database update -p SICSinop.API
-
-// add-migration Initialize -verbose -StartupProject Corporate.Wozzi.Restaurant.API -project Corporate.Wozzi.Restaurant.Infrastructure
-// update-database -verbose -StartupProject Corporate.Wozzi.Restaurant.API
