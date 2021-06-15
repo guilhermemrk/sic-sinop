@@ -14,10 +14,14 @@ using SICSinop.Domain.Services;
 using SICSinop.Infrastructure.Data.Context;
 using SICSinop.Domain.Data.Repository;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Reflection;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace SICSinop.API
 {
@@ -30,49 +34,50 @@ namespace SICSinop.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Authentication
-            //services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-            //    .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
-
-            // MSSQL
-            //services.AddDbContext<MainDbContext>(
-            //    options => options.UseSqlServer(
-            //        Configuration.GetConnectionString("MainConnection"),
-            //        x => x.MigrationsAssembly("SICSinop.Infrastructure")));
-
             services.AddControllers();
 
-            services.AddEntityFrameworkNpgsql()
-             .AddDbContext<MainDbContext>(
-                options => options.UseNpgsql(
-                    Configuration.GetConnectionString("PostgreSQL"),
-                    x => x.MigrationsAssembly("SICSinop.Infrastructure")
-                    )
-                );
+            services
+                .AddDbContext<MainDbContext>(
+                    options => options.UseNpgsql(
+                        Configuration.GetConnectionString("PostgreSQL"),
+                        x => x.MigrationsAssembly("SICSinop.Infrastructure")
+                        )
+                    );
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IMarkerRepository, MarkerRepository>();
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IMarkerService, MarkerService>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TodoAPI", Version = "v1" });
+                
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "SICSinop V1");
+                opt.RoutePrefix = string.Empty;
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
-
-            //app.UseAuthentication();
 
             app.UseAuthorization();
 
